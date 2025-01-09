@@ -1,3 +1,4 @@
+```
 @startuml
 
 left to right direction
@@ -9,6 +10,7 @@ package "Przypadki użycia użytkownika" {
     usecase "Wybór biletu" as UC1
     usecase "Zakup biletu" as UC2
 }
+
 
 package "Przypadki użycia administratora" {
     usecase "Zdalna aktualizacja oprogramowania biletomatów" as AC1
@@ -24,3 +26,4 @@ Admin --> AC2
 Admin --> AC3
 
 @enduml
+```
