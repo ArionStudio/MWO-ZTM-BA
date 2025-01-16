@@ -15,6 +15,9 @@ User -> Screen : Wybierz typ biletu
 Screen -> TicketSystem : Pobierz listę dostępnych biletów
 TicketSystem --> Screen : Wyślij listę biletów
 Screen -> User : Wyświetl dostępne bilety
+User -> Screen : Wybierz język interfejsu
+Screen -> User : Wyświetl interfejs w wybranym języku
+User -> Screen : Wyświetl licznik czasu decyzji
 
 @enduml
 ```
@@ -31,12 +34,16 @@ participant "System Biletowy" as TicketSystem
 
 User -> Screen : Potwierdź zakup biletu
 Screen -> TransactionSystem : Zainicjuj transakcję płatniczą
-TransactionSystem --> Screen : Status transakcji (Sukces)
+TransactionSystem -> Screen : Autoryzacja płatności (karta, gotówka, telefon)
+TransactionSystem --> Screen : Status transakcji (Sukces/Odrzucenie)
+Screen -> User : Wyświetl status transakcji
+User -> Screen : Sprawdź poprawność transakcji
 Screen -> TicketSystem : Rejestruj bilet
 TicketSystem --> Screen : Potwierdzenie rejestracji
-Screen -> User : Wyświetl potwierdzenie zakupu
+Screen -> User : Wyświetl potwierdzenie zakupu (wydruk biletu/elektroniczny bilet)
 
 @enduml
+
 ```
 3. Zdalna aktualizacja oprogramowania biletomatów
 ```
@@ -49,6 +56,7 @@ participant "Biletomat" as TicketMachine
 
 Admin -> CentralSystem : Rozpocznij aktualizację oprogramowania
 CentralSystem -> TicketMachine : Wyślij nowe oprogramowanie
+TicketMachine -> CentralSystem : Zgłoś stan biletomatu (np. brak papieru)
 TicketMachine --> CentralSystem : Potwierdź instalację
 CentralSystem -> Admin : Status aktualizacji
 
@@ -62,8 +70,11 @@ CentralSystem -> Admin : Status aktualizacji
 == Dostęp do raportów sprzedaży w czasie rzeczywistym ==
 actor Administrator as Admin
 participant "System Centralny" as CentralSystem
+participant "Biletomat" as TicketMachine
 
 Admin -> CentralSystem : Poproś o raport sprzedaży
+CentralSystem -> TicketMachine : Pobierz dane sprzedaży
+TicketMachine --> CentralSystem : Wyślij dane sprzedaży
 CentralSystem --> Admin : Wyślij raport sprzedaży
 
 @enduml
@@ -72,15 +83,15 @@ CentralSystem --> Admin : Wyślij raport sprzedaży
 ```
 @startuml
 
-== Konfiguracja biletów, promocji i taryf ==
+== Dostęp do raportów sprzedaży w czasie rzeczywistym ==
 actor Administrator as Admin
 participant "System Centralny" as CentralSystem
 participant "Biletomat" as TicketMachine
 
-Admin -> CentralSystem : Zaktualizuj taryfy i promocje
-CentralSystem -> TicketMachine : Rozpocznij synchronizację danych
-TicketMachine --> CentralSystem : Potwierdzenie synchronizacji
-CentralSystem -> Admin : Potwierdzenie aktualizacji
+Admin -> CentralSystem : Poproś o raport sprzedaży
+CentralSystem -> TicketMachine : Pobierz dane sprzedaży
+TicketMachine --> CentralSystem : Wyślij dane sprzedaży
+CentralSystem --> Admin : Wyślij raport sprzedaży
 
 @enduml
 ```
