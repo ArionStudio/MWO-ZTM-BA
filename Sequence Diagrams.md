@@ -38,3 +38,49 @@ Screen -> User : Wyświetl potwierdzenie zakupu
 
 @enduml
 ```
+3. Zdalna aktualizacja oprogramowania biletomatów
+```
+@startuml
+
+== Zdalna aktualizacja oprogramowania biletomatów ==
+actor Administrator as Admin
+participant "System Centralny" as CentralSystem
+participant "Biletomat" as TicketMachine
+
+Admin -> CentralSystem : Rozpocznij aktualizację oprogramowania
+CentralSystem -> TicketMachine : Wyślij nowe oprogramowanie
+TicketMachine --> CentralSystem : Potwierdź instalację
+CentralSystem -> Admin : Status aktualizacji
+
+@enduml
+```
+
+4. Dostęp do raportów sprzedaży w czasie rzeczywistym
+```
+@startuml
+
+== Dostęp do raportów sprzedaży w czasie rzeczywistym ==
+actor Administrator as Admin
+participant "System Centralny" as CentralSystem
+
+Admin -> CentralSystem : Poproś o raport sprzedaży
+CentralSystem --> Admin : Wyślij raport sprzedaży
+
+@enduml
+```
+5.Konfiguracja biletów, promocji i taryf
+```
+@startuml
+
+== Konfiguracja biletów, promocji i taryf ==
+actor Administrator as Admin
+participant "System Centralny" as CentralSystem
+participant "Biletomat" as TicketMachine
+
+Admin -> CentralSystem : Zaktualizuj taryfy i promocje
+CentralSystem -> TicketMachine : Rozpocznij synchronizację danych
+TicketMachine --> CentralSystem : Potwierdzenie synchronizacji
+CentralSystem -> Admin : Potwierdzenie aktualizacji
+
+@enduml
+```
